@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Agendamentos</h2>
+<a href="{{ url_for('agendamentos.novo_agendamento') }}">Novo Agendamento</a>
+<ul>
+    {% for ag in agendamentos %}
+        <li>
+            {{ ag.cliente.nome }}: {{ ag.inicio }} até {{ ag.fim }}
+            {% if ag.finalizado_em %}
+                (Finalizado às {{ ag.finalizado_em }})
+            {% else %}
+                <a href="{{ url_for('agendamentos.finalizar_agendamento', id=ag.id) }}">Finalizar</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

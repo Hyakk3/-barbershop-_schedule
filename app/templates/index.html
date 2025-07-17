@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Barbearia - Sistema de Agendamento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+        .hero {
+            background: url('https://images.unsplash.com/photo-1519744792095-2f2205e87b6f') center center/cover no-repeat;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .hero h1 {
+            font-size: 3rem;
+        }
+        .container .btn {
+            padding: 20px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <div class="text-center">
+            <h1>Barbearia Elite</h1>
+            <p class="lead">Sistema de Gestão e Agendamento</p>
+        </div>
+    </div>
+
+    <div class="container text-center mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-3">
+                <a href="{{ url_for('clientes.listar_clientes') }}" class="btn btn-dark w-100">Clientes</a>
+            </div>
+            <div class="col-md-4 mb-3">
+                <a href="{{ url_for('agendamentos.listar_agendamentos') }}" class="btn btn-outline-dark w-100">Agendamentos</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
