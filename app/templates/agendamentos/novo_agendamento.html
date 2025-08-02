@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Novo Agendamento</h2>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  {{ form.cliente_id.label }} {{ form.cliente_id() }}<br>
+
+  {{ form.inicio.label }}
+  {{ form.inicio(class="form-control", type="datetime-local", min=min_inicio) }}<br>
+
+  {{ form.fim.label }}
+  {{ form.fim(class="form-control", type="datetime-local", min=min_inicio, max="2099-12-31T23:59") }}<br>
+
+  {{ form.submit() }}
+</form>
+{% endblock %}

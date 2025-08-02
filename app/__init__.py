@@ -16,8 +16,8 @@ def create_app():
     from .routes.clientes import clientes_bp
     from .routes.agendamentos import agendamentos_bp
 
-    app.register_blueprint(clientes_bp, url_prefix='/clientes')
-    app.register_blueprint(agendamentos_bp, url_prefix='/agendamentos')
+    app.register_blueprint(clientes_bp)
+    app.register_blueprint(agendamentos_bp)
 
     @app.route('/')
     def index():

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Clientes</h2>
+<a href="{{ url_for('clientes.novo_cliente') }}">Novo Cliente</a>
+<ul>
+    {% for cliente in clientes %}
+        <li>
+            {{ cliente.nome }} - {{ cliente.telefone }}
+            <a href="{{ url_for('clientes.excluir_cliente', id=cliente.id) }}"
+               onclick="return confirm('Tem certeza que deseja excluir este cliente?')">Excluir</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

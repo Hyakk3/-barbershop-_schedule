@@ -8,11 +8,104 @@
 <body>
     <h1>Sistema de Agendamento</h1>
     <nav>
-        <a href="/">Início</a> |
-        <a href="/clientes/">Clientes</a> |
-        <a href="/agendamentos/">Agendamentos</a>
+        <a href="{{ url_for('index') }}">Início</a> |
+        <a href="{{ url_for('clientes.lista_clientes') }}">Clientes</a> |
+        <a href="{{ url_for('agendamentos.lista_agendamentos') }}">Agendamentos</a>
     </nav>
     <hr>
+
+
+    <div id="flash-messages" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+
+    <script>
+      function showFlashMessage(message, category) {
+        const container = document.getElementById("flash-messages");
+
+        const alertBox = document.createElement("div");
+        alertBox.innerText = message;
+
+        alertBox.style.padding = "10px 20px";
+        alertBox.style.marginBottom = "10px";
+        alertBox.style.borderRadius = "5px";
+        alertBox.style.fontWeight = "bold";
+        alertBox.style.color = "white";
+        alertBox.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
+        alertBox.style.opacity = "0.95";
+
+        if (category === "success") {
+          alertBox.style.backgroundColor = "#28a745";
+        } else if (category === "error") {
+          alertBox.style.backgroundColor = "#dc3545";
+        } else {
+          alertBox.style.backgroundColor = "#6c757d";
+        }
+
+        container.appendChild(alertBox);
+
+        setTimeout(() => {
+          container.removeChild(alertBox);
+        }, 3000);
+      }
+    </script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <script>
+          {% for category, message in messages %}
+            showFlashMessage({{ message|tojson }}, {{ category|tojson }});
+          {% endfor %}
+        </script>
+      {% endif %}
+    {% endwith %}
+
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const telefoneInput = document.getElementById("telefone");
+
+  telefoneInput.addEventListener("keydown", function (e) {
+    // Permite usar backspace normalmente
+    if (e.key === "Backspace") {
+      const start = telefoneInput.selectionStart;
+      const end = telefoneInput.selectionEnd;
+
+      // Se apagar caracteres fixos (como "(", ")" ou espaço), pula para trás
+      if (start === end && start > 0) {
+        const prevChar = telefoneInput.value[start - 1];
+        if (" ()-".includes(prevChar)) {
+          e.preventDefault();
+          telefoneInput.setSelectionRange(start - 1, start - 1);
+          telefoneInput.value =
+            telefoneInput.value.slice(0, start - 1) +
+            telefoneInput.value.slice(start);
+        }
+      }
+    }
+  });
+
+  telefoneInput.addEventListener("input", function (e) {
+    let value = e.target.value.replace(/\D/g, "");
+
+    // Limita a 11 dígitos
+    if (value.length > 11) value = value.slice(0, 11);
+
+    // Formatação dinâmica
+    if (value.length > 6) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+    } else if (value.length > 2) {
+      value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+    } else if (value.length > 0) {
+      value = `(${value}`;
+    }
+
+    e.target.value = value;
+  });
+});
+</script>
+
+
+
+
     {% block conteudo %}{% endblock %}
+
 </body>
 </html>

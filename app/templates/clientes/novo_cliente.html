@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Novo Cliente</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    {{ form.nome.label }}
+    {{ form.nome() }}<br><br>
+
+    {{ form.telefone.label }}
+    {{ form.telefone(class_="telefone-mask", size=20, maxlength=20, placeholder="(00) 0 0000-0000") }}<br><br>
+
+    {{ form.submit() }}
+</form>
+{% endblock %}

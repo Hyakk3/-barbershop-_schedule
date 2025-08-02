@@ -11,6 +11,8 @@
             {% else %}
                 <a href="{{ url_for('agendamentos.finalizar_agendamento', id=ag.id) }}">Finalizar</a>
             {% endif %}
+            | <a href="{{ url_for('agendamentos.excluir_agendamento', id=ag.id) }}"
+                 onclick="return confirm('Deseja excluir este agendamento?')">Excluir</a>
         </li>
     {% endfor %}
 </ul>

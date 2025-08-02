@@ -5,7 +5,8 @@ class Cliente(db.Model):
     nome = db.Column(db.String(100), nullable=False)
     telefone = db.Column(db.String(20), nullable=False)
 
-    agendamentos = db.relationship('Agendamento', backref='cliente', lazy=True)
+    agendamentos = db.relationship('Agendamento', backref='cliente', cascade="all, delete-orphan")
+
 
 class Agendamento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
